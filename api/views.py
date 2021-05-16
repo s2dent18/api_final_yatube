@@ -1,7 +1,9 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, permissions, viewsets
 
+from .filters import GroupFilter
 from .models import Follow, Group, Post
 from .permissions import FollowPermission, IsAuthorOrReadOnly
 from .serializers import (CommentSerializer, FollowSerializer, GroupSerializer,
@@ -32,13 +34,11 @@ class PostViewSet(viewsets.ModelViewSet):
         IsAuthorOrReadOnly,
         permissions.IsAuthenticatedOrReadOnly
     ]
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = GroupFilter
 
     def get_queryset(self):
-        queryset = Post.objects.all()
-        group = self.request.query_params.get('group', None)
-        if group is not None:
-            queryset = queryset.filter(group=group)
-        return queryset
+        return Post.objects.all()
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
