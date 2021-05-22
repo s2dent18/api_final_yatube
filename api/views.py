@@ -8,7 +8,7 @@ from .permissions import FollowPermission, IsAuthorOrReadOnly
 from .serializers import (CommentSerializer, FollowSerializer, GroupSerializer,
                           PostSerializer)
 
-from.viewsets import CustomViewSet
+from.custom_mixins import CustomViewSet
 
 
 class CommentViewSet(viewsets.ModelViewSet):
@@ -35,7 +35,7 @@ class PostViewSet(viewsets.ModelViewSet):
         permissions.IsAuthenticatedOrReadOnly
     ]
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['group']
+    filterset_fields = ('group', )
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
@@ -48,7 +48,7 @@ class FollowViewSet(CustomViewSet):
         permissions.IsAuthenticated,
     ]
     filter_backends = [SearchFilter]
-    search_fields = ['user__username', 'following__username']
+    search_fields = ('user__username', 'following__username', )
 
     def get_queryset(self):
         return Follow.objects.filter(following=self.request.user)
