@@ -1,5 +1,6 @@
 [![Python](https://img.shields.io/badge/-Python-464646?style=flat-square&logo=Python)](https://www.python.org/)
 [![Django REST Framework](https://img.shields.io/badge/-Django%20REST%20Framework-464646?style=flat-square&logo=Django%20REST%20Framework)](https://www.django-rest-framework.org/)
+[![Simple JWT Django](https://img.shields.io/badge/-Simple%20JWT%20Django-464646?style=flat-square&logo=Simple%20JWT%20Django)](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/)
 
 # API сервис Yatube
 
